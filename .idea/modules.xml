@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Share-location-realtime.iml" filepath="$PROJECT_DIR$/Share-location-realtime.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/share-location-realtime-library/share-location-realtime-library.iml" filepath="$PROJECT_DIR$/share-location-realtime-library/share-location-realtime-library.iml" />
+      <module fileurl="file://D:\Work\Android\Project\OatRice\Share-location-realtime\share-location-realtime-library\share-location-realtime-library.iml" filepath="D:\Work\Android\Project\OatRice\Share-location-realtime\share-location-realtime-library\share-location-realtime-library.iml" />
     </modules>
   </component>
 </project>
