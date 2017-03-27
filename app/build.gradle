@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 'android-O'
+    compileSdkVersion 25
     buildToolsVersion '26.0.0-rc1'
     defaultConfig {
         applicationId "com.example.sharelocationrealtime"
         minSdkVersion 16
-        targetSdkVersion 'O'
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
