@@ -3,7 +3,7 @@ package com.example.sharelocationrealtime
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.oatrice.ShareLocationRealtime.ShareLocationSigninActivity
+import com.oatrice.ShareLocationRealtime.activity.ShareLocationSigninActivity
 
 class MainActivity : AppCompatActivity() {
 

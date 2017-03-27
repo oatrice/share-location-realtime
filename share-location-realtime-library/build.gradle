@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
@@ -12,6 +13,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
 
     }
     buildTypes {
@@ -20,7 +22,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main.kotlin.srcDirs += 'src/main/myKotlin'
+    }
 }
+
+ext.firebaseLibraryVersion = '10.2.0'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -31,7 +39,14 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "com.google.firebase:firebase-auth:$firebaseLibraryVersion"
+    compile "com.google.android.gms:play-services-auth:$firebaseLibraryVersion"
+    compile "com.google.android.gms:play-services-maps:$firebaseLibraryVersion"
+    compile 'com.jakewharton.timber:timber:4.5.1'
 }
 repositories {
     mavenCentral()
 }
+apply plugin: 'com.google.gms.google-services'
+
+

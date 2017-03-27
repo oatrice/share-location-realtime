@@ -2,8 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.oatrice.ShareLocationRealtime">
 
-    <application>
-        <activity android:name=".ShareLocationSigninActivity"></activity>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application android:name=".application.MainApplication">
+        <activity android:name=".activity.ShareLocationSigninActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".activity.MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>
