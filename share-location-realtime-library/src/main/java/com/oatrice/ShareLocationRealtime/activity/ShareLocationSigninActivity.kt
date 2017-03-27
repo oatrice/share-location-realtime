@@ -12,7 +12,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.oatrice.ShareLocationRealtime.BuildConfig
 import com.oatrice.ShareLocationRealtime.R
 import com.oatrice.ShareLocationRealtime.dao.Constants.GOOGLE_SIGNIN_REQUEST_CODE
 import com.oatricedev.bikebuffet.common.BaseActivity
@@ -28,17 +27,21 @@ class ShareLocationSigninActivity : BaseActivity(),
     private var googleSignInOptions: GoogleSignInOptions? = null
     private var mGoogleApiClient: GoogleApiClient? = null
 
-    val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_share_location_signin)
-        Timber.i("AAA onCreate")
-        Timber.i("AAA onCreate: " + BuildConfig.DEBUG)
 
-        setupProgressBar()
-        setupGoogleApiClient()
-        setupListener()
+        if (!checkSignedIn()) {
+            setupProgressBar()
+            setupGoogleApiClient()
+            setupListener()
+
+        } else {
+            goToNextActivity()
+
+        }
     }
 
     override fun onStop() {
@@ -47,10 +50,10 @@ class ShareLocationSigninActivity : BaseActivity(),
     }
 
     override fun onClick(view: View?) {
-
         when(view!!.id) {
             R.id.btGoogleLogin -> googleLogin()
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -58,19 +61,18 @@ class ShareLocationSigninActivity : BaseActivity(),
         checkResultGoogleSignin(data!!, requestCode)
     }
 
-    override fun onConnectionFailed(p0: ConnectionResult) {
+    override fun onConnectionFailed(connectionResult: ConnectionResult) {
+        Timber.w("onConnectionFailed")
 
     }
 
     private fun googleLogin() {
-        Timber.i("AAA googleLogin")
         showProgressBar()
         val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
         startActivityForResult(signInIntent, GOOGLE_SIGNIN_REQUEST_CODE)
     }
 
     private fun checkResultGoogleSignin(data: Intent, requestCode: Int) {
-        Timber.i("AAA checkResultGoogleSignin")
         if (requestCode == GOOGLE_SIGNIN_REQUEST_CODE) {
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             if (result.isSuccess) {
@@ -86,7 +88,6 @@ class ShareLocationSigninActivity : BaseActivity(),
     }
 
     private fun fireBaseAuthWithGoogle(account: GoogleSignInAccount) {
-        Timber.i("AAA fireBaseAuthWithGoogle")
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
             task ->
@@ -118,33 +119,31 @@ class ShareLocationSigninActivity : BaseActivity(),
         if (progress != null) {
             progress!!.dismiss()
             progress = null
+
         }
     }
 
     private fun setupProgressBar() {
-        Timber.i("AAA setupProgressBar")
         progress = ProgressDialog(this)
-        progress!!.setTitle("")
-        progress!!.setMessage("")
+        progress!!.setTitle(R.string.loading_en)
+        progress!!.setMessage(getString(R.string.loading_th))
         progress!!.isIndeterminate = true
 
     }
 
     private fun showProgressBar() {
-        Timber.i("AAA showProgressBar")
         if (progress != null)
             progress!!.show()
+
     }
 
     private fun hideProgressBar() {
-        Timber.i("AAA hideProgressBar")
         if (progress != null)
             progress!!.dismiss()
+
     }
 
     private fun setupGoogleApiClient() {
-        Timber.i("AAA setupGoogleApiClient")
-
         googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -158,8 +157,16 @@ class ShareLocationSigninActivity : BaseActivity(),
     }
 
     private fun setupListener() {
-        Timber.i("AAA setupListener")
         btGoogleLogin.setOnClickListener(this)
 
     }
+
+    private fun checkSignedIn() : Boolean{
+        val firebaseUser = firebaseAuth.currentUser
+        if (firebaseUser != null) {
+            return true
+        }
+        return false
+    }
+
 }
