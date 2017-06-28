@@ -7,10 +7,6 @@
     <application android:name=".application.MainApplication">
         <activity android:name=".activity.ShareLocationSigninActivity" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
         <activity
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
