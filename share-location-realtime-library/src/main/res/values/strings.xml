@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Share location realtime</string>
+    <string name="double_tab_to_exit">กดปุ่ม Back อีกครั้งเพื่อออกจาหรรบ</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
