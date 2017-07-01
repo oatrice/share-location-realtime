@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "488444591658",
+    "firebase_url": "https://share-location-realtime.firebaseio.com",
+    "project_id": "share-location-realtime",
+    "storage_bucket": "share-location-realtime.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488444591658:android:126f34e0bf566c59",
+        "android_client_info": {
+          "package_name": "com.example.sharelocationrealtime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488444591658-fefsas48rd86adj8uqsih2fg68nrenfj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sharelocationrealtime",
+            "certificate_hash": "e2e1922f27026672fd952956eb489f648b3bafb0"
+          }
+        },
+        {
+          "client_id": "488444591658-2r8sbehaai0lcaa62njpdu1rup5jnhkk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDUWTRGur9z1IeKmx37CFikdatKDKv9Ho"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488444591658-2r8sbehaai0lcaa62njpdu1rup5jnhkk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488444591658:android:b3d5ea699cc35af2",
+        "android_client_info": {
+          "package_name": "com.oatrice.ShareLocationRealtime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488444591658-2r8sbehaai0lcaa62njpdu1rup5jnhkk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDUWTRGur9z1IeKmx37CFikdatKDKv9Ho"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
