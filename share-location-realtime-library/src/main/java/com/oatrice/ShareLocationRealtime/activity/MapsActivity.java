@@ -3,7 +3,9 @@ package com.oatrice.ShareLocationRealtime.activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +22,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.oatrice.ShareLocationRealtime.R;
+import com.oatrice.ShareLocationRealtime.view.IconGenerator;
 
 import timber.log.Timber;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private IconGenerator mIconGenerator;
+    private AppCompatImageView mImageView;
 
     private GoogleMap.InfoWindowAdapter infoWindowAdapter = new GoogleMap.InfoWindowAdapter() {
         @Override
@@ -79,6 +84,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mImageView = new AppCompatImageView(this);
+        int mDimension = (int) getResources().getDimension(R.dimen.custom_profile_image);
+        mImageView.setLayoutParams(new ViewGroup.LayoutParams(mDimension, mDimension));
+        int padding = (int) getResources().getDimension(R.dimen.custom_profile_padding);
+        mImageView.setPadding(padding, padding, padding, padding);
+
+        mIconGenerator = new IconGenerator(this);
+        mIconGenerator.setContentView(mImageView);
     }
 
 
@@ -95,18 +109,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
+        defaultMapMarker();
+        drawableMarker();
+        customLayoutMarker();
+
+        mMap.setInfoWindowAdapter(infoWindowAdapter);
+
+    }
+
+    private void defaultMapMarker() {
         LatLng sydney = new LatLng(-34, 151);
         MarkerOptions markerOption = new MarkerOptions()
                 .position(sydney)
-                .title("Marker in Sydney")
+                .title("Default marker");
+        mMap.addMarker(markerOption);
+    }
+
+    private void drawableMarker() {
+        LatLng latLng = new LatLng(-33, 191);
+        MarkerOptions markerOption = new MarkerOptions()
+                .position(latLng)
+                .title("Drawable marker")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_orange_location));
+
+        mMap.addMarker(markerOption);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+    }
+
+    private void customLayoutMarker() {
+        mImageView.setImageResource(R.drawable.ic_avatar);
+        Bitmap icon = mIconGenerator.makeIcon();
+
+        LatLng latLng = new LatLng(-32, 211);
+        MarkerOptions markerOption = new MarkerOptions()
+                .position(latLng)
+                .title("Custom layout marker")
+                .icon(BitmapDescriptorFactory.fromBitmap(icon));
+
         Marker marker = mMap.addMarker(markerOption);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        mMap.setInfoWindowAdapter(infoWindowAdapter);
 
         //force show marker
         marker.showInfoWindow();
-//        infoWindowAdapter.getInfoContents(marker.get);
+
     }
 }
